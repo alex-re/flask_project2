@@ -1,0 +1,16 @@
+{
+"python.linting.pylintEnabled": true,
+"python.linting.pylintArgs": [
+    // "--disable=C0111", // missing docstring
+    "--load-plugins=pylint_django,pylint_celery",
+ ],
+// "editor.tokenColorCustomizations": {
+    //  "comments": "#d4922f"
+    // },
+    "python.pythonPath": "venv/bin/python",
+
+    "[html]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true
+    },
+}

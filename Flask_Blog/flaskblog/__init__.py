@@ -14,6 +14,7 @@ bcrypt = Bcrypt(app)
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'  # FUNCTION NAME
+login_manager.login_message = "please first login"
 login_manager.login_message_category = 'warning'
 
 from flaskblog import routes  # here because preventional of circular import.

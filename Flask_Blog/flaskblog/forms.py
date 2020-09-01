@@ -41,6 +41,7 @@ class UpdateAccountForm(FlaskForm):
     username = StringField('Username',
                             validators=[DataRequired(), Length(min=2, max=20)],
                             render_kw={"placeholder":"username"})
+                            
     email = StringField('Email',
                             validators=[DataRequired(), Email(), Length(min=6, max=30)])
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])

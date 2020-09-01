@@ -6,7 +6,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 import secrets
 import os
 # from hashlib import sha256
-from PIL import Image 
+from PIL import Image
+# from PIL import ImageFilter
 
 
 posts = [
@@ -90,6 +91,8 @@ def save_picture(form_picture):
     output_size = (200, 200)
     resized_img = Image.open(form_picture)
     resized_img.thumbnail(output_size)
+    # resized_img.rotate(90)  # 90 degrees
+    # resized_img.filter(ImageFilter.GaussianBlur(15))
 
     resized_img.save(picture_path)
 
@@ -103,6 +106,13 @@ def account():
     if form.validate_on_submit():
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
+
+            last_img = os.path.join(app.root_path, 'static/profile_pics/', current_user.image_file)
+            if os.path.exists(last_img) and not last_img.endswith('default.png'):
+                os.remove(last_img)
+            # else:
+                # raise NameError(last_img)
+
             current_user.image_file = picture_file
 
         current_user.username = form.username.data

@@ -3,7 +3,8 @@
 
 {% block content %}
 
-  {# {% for post in posts.items|reverse %} #} <!-- or we can reverse in python as same as we did in this case -->
+  <h1 class="mb-3">Posts By {{ user.username }} ( {{ posts.total }} )</h1>
+
   {% for post in posts.items %}
       <article class="media content-section">
         <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" alt="User Profile Picture" class="rounded-circle article-img">
@@ -18,17 +19,13 @@
       </article>
   {% endfor %}
 
-  {# left_edge=1 -> show 1 in leftest #}
-  {# right_edge=1 -> show 1 in rightest #}
-  {# left_current=1 -> show 1 in left of current page #}
-  {# right_current=2 -> show the current page and one in right of current page (2 with the current page) #}
-   {# SHOW THE LAST AND THE FIRST, AND ONE IN LEFT, AND THE CURRENT WITH ONE IN RIGHT #}
+  {# document for next line in home.html #}
   {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
       {% if page_num %}
           {% if posts.page == page_num %}
-              <a class="btn btn-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+              <a class="btn btn-info mb-4" href="{{ url_for('user_posts', username=user.username, page=page_num) }}">{{ page_num }}</a>
           {% else %}
-              <a class="btn btn-outline-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+              <a class="btn btn-outline-info mb-4" href="{{ url_for('user_posts', username=user.username, page=page_num) }}">{{ page_num }}</a>
           {% endif %}         
       {% else %}
           <b class="text-primary">...</b>

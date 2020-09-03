@@ -1,7 +1,8 @@
 import os
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import render_template, url_for, flash, redirect, request, Blueprint, current_app
 from flask_login import login_user, current_user, logout_user, login_required
-from flaskblog import db, bcrypt, app
+from flaskblog import db, bcrypt
+
 from flaskblog.models import User, Post
 from flaskblog.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
@@ -61,7 +62,7 @@ def account():
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
 
-            last_img = os.path.join(app.root_path, 'static/profile_pics/', current_user.image_file)
+            last_img = os.path.join(current_app.root_path, 'static/profile_pics/', current_user.image_file)
             if os.path.exists(last_img) and not last_img.endswith('default.png'):
                 os.remove(last_img)
             # else:

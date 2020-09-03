@@ -3,17 +3,18 @@ import secrets
 from PIL import Image
 from flask import url_for, current_app
 from flask_mail import Message
-from flaskblog import mail, app
+from flaskblog import mail
+
 
 
 def save_picture(form_picture):
-    ''' we wantrandom file name '''
+    ''' we want random file name '''
     random_hex = secrets.token_hex(8)
     # random_hex = os.urandom(64).decode('latin1')
     f_name, f_ext = os.path.splitext(form_picture.filename)  # f_ext -> file extetion
     # del f_name  # for memmory saving
     picture_fn = random_hex + f_ext  # picture file name
-    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+    picture_path = os.path.join(current_app.root_path, 'static/profile_pics', picture_fn)
 
     output_size = (200, 200)
     resized_img = Image.open(form_picture)
